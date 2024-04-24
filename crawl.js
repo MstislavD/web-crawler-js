@@ -11,6 +11,10 @@ function normalizeURL(url){
         normalizedURL = normalizedURL.slice(0,-1)
     }
 
+    // const urlObject = new URL(url)
+    // normalizedURL = `${urlObject.host}${urlObject.pathname}`
+    // console.log(normalizedURL)
+
     return normalizedURL
 }
 
