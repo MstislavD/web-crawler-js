@@ -1,3 +1,5 @@
+const { JSDOM } = require('jsdom')
+
 function normalizeURL(url){
     normalizedURL = url
     
@@ -18,6 +20,21 @@ function normalizeURL(url){
     return normalizedURL
 }
 
+function getURLsFromHTML(htmlBody, baseURL){
+    const dom = new JSDOM(htmlBody)
+    const query = dom.window.document.querySelectorAll('a')
+    const hrefs = []
+    for (let item of query){
+        let linkURL = item.href
+        if (linkURL.slice(0, baseURL.length) != baseURL){
+            linkURL = [...baseURL, '/', ...linkURL].join("")
+        }
+        hrefs.push(linkURL)
+    }
+    return hrefs
+}
+
 module.exports = {
-    normalizeURL
+    normalizeURL,
+    getURLsFromHTML
 }
